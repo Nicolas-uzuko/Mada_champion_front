@@ -1,12 +1,114 @@
 @import "tailwindcss";
 
-:root { --ink:#1F2937; --leaf:#679436; --mint:#0FAC71; --earth:#8C9C7C; --paper:#F8FAF5; --line:#D7DFD0; }
-* { box-sizing:border-box; }
-html { background:var(--paper); }
-body { margin:0; color:var(--ink); background:var(--paper); font-family:Arial, Helvetica, sans-serif; }
-button, input, select, textarea { font:inherit; }
-:focus-visible { outline:3px solid #0FAC71; outline-offset:3px; }
-.display { font-family:Impact, "Arial Narrow", sans-serif; letter-spacing:.035em; }
-.grain { background-image:radial-gradient(rgba(31,41,55,.07) .65px, transparent .65px); background-size:7px 7px; }
-.topo { background-image:repeating-radial-gradient(ellipse at 20% 60%, transparent 0 20px, rgba(103,148,54,.16) 21px 22px, transparent 23px 43px); }
-.raphia { background-image:linear-gradient(45deg,rgba(103,148,54,.12) 25%,transparent 25% 75%,rgba(103,148,54,.12) 75%),linear-gradient(-45deg,rgba(15,172,113,.1) 25%,transparent 25% 75%,rgba(15,172,113,.1) 75%); background-size:28px 28px; }
+/* ─── Tokens ─────────────────────────────────────────────── */
+:root {
+  --leaf:   #679436;
+  --leaf-l: #a7d270;
+  --mint:   #0FAC71;
+  --earth:  #8C9C7C;
+  --ink:    #1F2937;
+  --paper:  #F8FAF5;
+  --white:  #FFFFFF;
+  --line:   #D7DFD0;
+  --accent: #8C9C7C;
+  --danger: #C0392B;
+}
+
+/* ─── Reset ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--paper); scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font: inherit; }
+:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
+
+/* ─── Display font (Bold condensed) ──────────────────────── */
+.display {
+  font-family: Impact, "Arial Narrow", "Arial Black", sans-serif;
+  letter-spacing: .035em;
+}
+
+/* ─── Textures & Motifs ───────────────────────────────────── */
+
+/* Grain léger sur les surfaces sombres */
+.grain {
+  background-image: radial-gradient(rgba(31,41,55,.08) .65px, transparent .65px);
+  background-size: 7px 7px;
+}
+
+/* Topo: ondulations douces (background hero) */
+.topo {
+  background-image:
+    repeating-radial-gradient(ellipse at 20% 60%,
+      transparent 0 20px,
+      rgba(103,148,54,.14) 21px 22px,
+      transparent 23px 43px
+    );
+}
+
+/* Raphia: trame diagonale fine (coin des cartes) */
+.raphia {
+  background-image:
+    linear-gradient(45deg, rgba(103,148,54,.10) 25%, transparent 25% 75%, rgba(103,148,54,.10) 75%),
+    linear-gradient(-45deg, rgba(15,172,113,.08) 25%, transparent 25% 75%, rgba(15,172,113,.08) 75%);
+  background-size: 20px 20px;
+}
+
+/* Lamba Malagasy: motif entrecroisé géométrique */
+.lamba {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(103,148,54,.06) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(90deg, rgba(103,148,54,.06) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(45deg, rgba(15,172,113,.04) 0 1px, transparent 1px 26px);
+  background-size: 18px 18px, 18px 18px, 26px 26px;
+}
+
+/* Fond sombre avec motif discret */
+.dark-motif {
+  background-color: var(--ink);
+  background-image:
+    repeating-radial-gradient(circle at 30% 70%,
+      rgba(103,148,54,.06) 0 30px,
+      transparent 30px 60px
+    );
+}
+
+/* ─── Animations ─────────────────────────────────────────── */
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: .7; }
+  50%  { transform: scale(1.07); opacity: .35; }
+  100% { transform: scale(1);   opacity: .7; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+.animate-pulse-ring  { animation: pulse-ring  2.4s ease-in-out infinite; }
+.animate-float       { animation: float       3s ease-in-out infinite; }
+.animate-spin-slow   { animation: spin-slow  12s linear infinite; }
+.animate-fade-up     { animation: fade-up    .5s ease both; }
+
+/* Skeleton loader */
+.skeleton {
+  background: linear-gradient(90deg, var(--line) 25%, #eef1e8 50%, var(--line) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+}
